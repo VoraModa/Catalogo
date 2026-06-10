@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VORA MODA | Moda con Estilo</title>
+
+<meta name="description" content="Vora Moda - Tienda virtual de ropa para hombre y mujer">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="loader">
+    <div class="loader-logo">
+        VORA MODA
+    </div>
+</div>
+
+<header class="header">
+
+    <div class="logo">
+        VORA MODA
+    </div>
+
+    <nav class="desktop-nav">
+
+        <a href="#" onclick="showSection('inicio'); return false;">Inicio</a>
+        
+        <div class="nav-dropdown">
+            <a href="#" onclick="return false;">Catálogo <i class="fa-solid fa-chevron-down" style="font-size: 0.8em; margin-left: 3px;"></i></a>
+            <div class="nav-dropdown-content">
+                <a href="#" onclick="showSection('catalogo', 'mujer'); return false;">Mujer</a>
+                <a href="#" onclick="showSection('catalogo', 'hombre'); return false;">Hombre</a>
+            </div>
+        </div>
+
+        <a href="#" onclick="cartSidebar.classList.add('active'); return false;">Carrito</a>
+
+    </nav>
+
+    <div class="header-actions">
+
+        <button id="searchBtn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+
+        <button id="adminBtn">
+            <i class="fa-solid fa-lock"></i>
+        </button>
+
+        <button id="cartBtn">
+
+            <i class="fa-solid fa-bag-shopping"></i>
+
+            <span id="cartCount">
+                0
+            </span>
+
+        </button>
+
+        </div>
+
+</header>
+
+<div id="mobileMenu" class="mobile-menu">
+
+    <a href="#" onclick="showSection('inicio'); closeMobileMenu(); return false;">
+        <i class="fa-solid fa-house"></i> Inicio
+    </a>
+    
+    <a href="#" onclick="document.getElementById('mobileCatSubmenu').classList.toggle('active'); return false;">
+        <i class="fa-solid fa-store"></i> Catálogo <i class="fa-solid fa-chevron-down" style="margin-left:auto;"></i>
+    </a>
+    <div id="mobileCatSubmenu" class="mobile-submenu">
+        <a href="#" onclick="showSection('catalogo', 'mujer'); closeMobileMenu(); return false;">Mujer</a>
+        <a href="#" onclick="showSection('catalogo', 'hombre'); closeMobileMenu(); return false;">Hombre</a>
+    </div>
+    
+    <a href="#" onclick="cartSidebar.classList.add('active'); closeMobileMenu(); return false;">
+        <i class="fa-solid fa-bag-shopping"></i> Carrito
+    </a>
+
+</div>
+
+<button id="menuBtn" class="mobile-menu-btn">
+    <i class="fa-solid fa-bars"></i>
+</button>
+
+
+<section id="inicio" class="hero">
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+
+        <h1>
+            Descubre tu mejor versión
+        </h1>
+
+        <p>
+            Moda moderna para mujeres y hombres que quieren destacar.
+        </p>
+
+        <div class="hero-socials">
+            <a href="https://wa.me/+573160673379" target="_blank" class="social-btn whatsapp">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+            <a href="https://www.instagram.com/vora_moda/" target="_blank" class="social-btn instagram">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+            <a href="https://www.tiktok.com/@vora_moda" target="_blank" class="social-btn tiktok">
+                <i class="fab fa-tiktok"></i> TikTok
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
+<section id="catalogo" class="catalog-section" style="display: none;">
+    <div class="catalog-overlay"></div>
+
+    <div class="section-header">
+
+        <h2 id="catalogMainTitle">
+            Catálogo
+        </h2>
+
+        <p>
+            Encuentra tu estilo ideal.
+        </p>
+
+    </div>
+
+    <div id="productsGrid" class="products-grid"></div>
+
+</section>
+
+<div id="cartSidebar" class="cart-sidebar">
+
+    <div class="cart-header">
+
+        <h3>
+            Mi Carrito
+        </h3>
+
+        <button id="closeCart">
+            ✕
+        </button>
+
+    </div>
+
+    <div id="cartItems" class="cart-items">
+
+    </div>
+
+    <div class="cart-footer">
+
+        <div class="cart-total">
+
+            Total:
+
+            <span id="cartTotal">
+                $0
+            </span>
+
+        </div>
+
+        <button id="checkoutBtn">
+            Finalizar Compra
+        </button>
+
+    </div>
+
+</div>
+
+<div id="adminModal" class="admin-modal">
+
+    <div class="admin-container">
+
+        <div class="admin-header">
+
+            <h2>
+                Panel Administrador
+            </h2>
+
+            <button id="closeAdmin">
+                ✕
+            </button>
+
+        </div>
+
+        <div class="admin-content">
+
+            <form id="productForm">
+
+                <input
+                    type="text"
+                    id="productName"
+                    placeholder="Nombre del producto"
+                    required
+                >
+
+                <input
+                    type="text"
+                    id="productImage"
+                    placeholder="URL de la imagen"
+                    required
+                >
+
+                <input
+                    type="number"
+                    id="productPrice"
+                    placeholder="Precio"
+                    required
+                >
+
+                <select id="productCategory">
+
+                    <option value="blusas">Blusas</option>
+                    <option value="camisas">Camisas</option>
+                    <option value="pantalones">Pantalones</option>
+                    <option value="vestidos">Vestidos</option>
+                    <option value="conjuntos">Conjuntos</option>
+                    <option value="chaquetas">Chaquetas</option>
+                    <option value="accesorios">Accesorios</option>
+
+                </select>
+
+                <select id="productGender">
+
+                    <option value="mujer">Mujer</option>
+                    <option value="hombre">Hombre</option>
+
+                </select>
+
+                <button type="submit">
+                    Guardar Producto
+                </button>
+
+            </form>
+
+            <div id="adminProducts">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<a
+href="https://wa.me/+573160673379"
+class="whatsapp-btn"
+target="_blank"
+>
+
+<i class="fab fa-whatsapp"></i>
+
+</a>
+
+<footer>
+
+    <div class="footer-logo">
+        VORA MODA
+    </div>
+
+    <div class="socials">
+
+        <a href="https://www.instagram.com/vora_moda/" target="_blank">
+            <i class="fab fa-instagram"></i>
+        </a>
+
+        <a href="https://www.tiktok.com/@vora_moda" target="_blank">
+            <i class="fab fa-tiktok"></i>
+        </a>
+
+        <a href="#">
+            <i class="fab fa-facebook"></i>
+        </a>
+
+    </div>
+
+    <p>
+        © 2026 Vora Moda - Todos los derechos reservados.
+    </p>
+
+</footer>
+
+<script type="module" src="app.js"></script>
+
+</body>
+</html>
