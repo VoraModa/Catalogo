@@ -630,21 +630,21 @@ window.deleteProduct = async function(id){
 // =========================
 
 checkoutBtn.addEventListener("click", () => {
-    if(cart.length === 0){ alert("Tu carrito está vacío"); return; }
+    if(cart.length === 0){
+        alert("Tu carrito está vacío");
+        return;
+    }
 
-    let message = "Hola, deseo comprar:%0A%0A";
+    let message = "Hola Vora Moda, deseo comprar:%0A%0A";
     let totalVenta = 0;
-    let totalCompra = 0;
 
     cart.forEach(item => {
         totalVenta += Number(item.price || 0);
-        totalCompra += Number(item.costPrice || 0); // Asegúrate que cada producto tenga costPrice
         message += `• ${item.name} (Cod: ${item.code || 'N/A'}) - $${Number(item.price || 0).toLocaleString("es-CO")}%0A`;
     });
 
     message += `%0A-------------------`;
-    message += `%0A*Valor Total Compra (Costo):* $${totalCompra.toLocaleString("es-CO")}`;
-    message += `%0A*Total a Pagar (Venta):* $${totalVenta.toLocaleString("es-CO")}`;
+    message += `%0A*Total a Pagar:* $${totalVenta.toLocaleString("es-CO")}`;
     
     window.open(`https://wa.me/573160673379?text=${message}`, "_blank");
 });
