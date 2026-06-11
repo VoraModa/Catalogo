@@ -50,10 +50,6 @@
 
     <div class="header-actions">
 
-        <button id="searchBtn">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-
         <button id="adminBtn">
             <i class="fa-solid fa-lock"></i>
         </button>
@@ -188,72 +184,92 @@
 
     <div class="admin-container">
 
-        <div class="admin-header">
-
-            <h2>
-                Panel Administrador
-            </h2>
-
-            <button id="closeAdmin">
-                ✕
-            </button>
-
+        <div id="adminLoginView" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; padding:20px;">
+            <h2 style="margin-bottom:20px; color:var(--black);"><i class="fa-solid fa-shield-halved"></i> Acceso Restringido</h2>
+            <input type="email" id="adminEmail" placeholder="Correo de propietario" class="input-full" style="max-width:300px; margin-bottom:10px; padding:12px; border:1px solid #ccc; border-radius:8px; font-family:'Montserrat',sans-serif;">
+            <input type="password" id="adminPassword" placeholder="Contraseña" class="input-full" style="max-width:300px; margin-bottom:20px; padding:12px; border:1px solid #ccc; border-radius:8px; font-family:'Montserrat',sans-serif;">
+            <button id="loginSubmitBtn" class="btn-modern-submit" style="max-width:300px; width:100%;">Ingresar</button>
+            <button id="closeLoginBtn" style="margin-top:15px; background:none; border:none; color:var(--gray-dark); cursor:pointer; font-weight:600;">Cancelar</button>
         </div>
 
-        <div class="admin-content">
-
-            <form id="productForm">
-
-                <input
-                    type="text"
-                    id="productName"
-                    placeholder="Nombre del producto"
-                    required
-                >
-
-                <input
-                    type="text"
-                    id="productImage"
-                    placeholder="URL de la imagen"
-                    required
-                >
-
-                <input
-                    type="number"
-                    id="productPrice"
-                    placeholder="Precio"
-                    required
-                >
-
-                <select id="productCategory">
-
-                    <option value="blusas">Blusas</option>
-                    <option value="camisas">Camisas</option>
-                    <option value="pantalones">Pantalones</option>
-                    <option value="vestidos">Vestidos</option>
-                    <option value="conjuntos">Conjuntos</option>
-                    <option value="chaquetas">Chaquetas</option>
-                    <option value="accesorios">Accesorios</option>
-
-                </select>
-
-                <select id="productGender">
-
-                    <option value="mujer">Mujer</option>
-                    <option value="hombre">Hombre</option>
-
-                </select>
-
-                <button type="submit">
-                    Guardar Producto
+        <div id="adminAppView" style="display:none; flex-direction:column; height:100%;">
+            <div class="admin-header">
+                <h2>
+                    <i class="fa-solid fa-sliders"></i> Panel Admin
+                </h2>
+                <button id="closeAdmin">
+                    <i class="fa-solid fa-xmark"></i>
                 </button>
-
-            </form>
-
-            <div id="adminProducts">
-
             </div>
 
+            <div class="admin-tabs">
+                <button class="tab-btn active" onclick="switchTab('productos')">Productos</button>
+                <button class="tab-btn" onclick="switchTab('inventario')">Inventario</button>
+                <button class="tab-btn" onclick="switchTab('finanzas')">Finanzas</button>
+            </div>
+
+            <div class="admin-content">
+
+                <div id="tab-productos" class="tab-content active">
+                    <form id="productForm">
+                        <input type="text" id="productName" class="input-full" placeholder="Nombre del producto" required>
+                        <input type="text" id="productCode" placeholder="Código" required>
+                        <input type="number" id="productPriceInput" placeholder="Precio de Venta ($)" required>
+                        <input type="text" id="productSize" placeholder="Talla" required>
+                        <input type="text" id="productColor" placeholder="Color" required>
+                        <select id="productGender">
+                            <option value="mujer">Mujer</option>
+                            <option value="hombre">Hombre</option>
+                        </select>
+                        <input type="file" id="productImageFile" class="input-full file-modern" accept="image/*" multiple required>
+
+                        <button type="submit" class="btn-modern-submit">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> Guardar Producto
+                        </button>
+                    </form>
+
+                    <div id="adminProductsList"></div>
+                </div>
+
+                <div id="tab-inventario" class="tab-content">
+                    <div class="finance-dashboard-grid" style="grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px;">
+                        <div class="finance-card-dark">
+                            <span class="finance-card-label">Número de Prendas</span>
+                            <h3 id="invCount" class="finance-card-val" style="color:#fff;">0</h3>
+                        </div>
+                        <div class="finance-card-dark">
+                            <span class="finance-card-label">Total Ganancia</span>
+                            <h3 id="invProfit" class="finance-card-val">0</h3>
+                        </div>
+                    </div>
+                    <div id="adminInventoryList" style="margin-top:20px;"></div>
+                </div>
+
+                <div id="tab-finanzas" class="tab-content">
+                    
+                    <form id="financeForm">
+                        <div class="form-group-title">Registro de Finanzas / Ventas</div>
+                        
+                        <select id="financeCodeSelect" class="input-full" required>
+                            <option value="">Seleccionar Código...</option>
+                        </select>
+                        
+                        <input type="number" id="financeCost" placeholder="Valor de Compra ($)" required>
+                        <input type="number" id="financePrice" placeholder="Valor de Venta ($)" required>
+                        <input type="number" id="financeDelivery" class="input-full" placeholder="Valor de Domicilio ($)" required>
+
+                        <button type="submit" class="btn-modern-submit">
+                            <i class="fa-solid fa-floppy-disk"></i> Registrar Venta
+                        </button>
+                    </form>
+
+                    <div id="adminTotalSalesCounter" style="margin-top:20px;"></div>
+
+                    <div id="adminSalesList" style="margin-top:15px;"></div>
+
+                </div>
+
+            </div>
         </div>
 
     </div>
